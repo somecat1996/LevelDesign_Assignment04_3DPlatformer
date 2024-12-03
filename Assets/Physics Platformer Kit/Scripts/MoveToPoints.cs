@@ -20,6 +20,8 @@ public class MoveToPoints : MonoBehaviour
 	private EnemyAI enemyAI;
 	private Rigidbody rigid;
 
+	public bool startMoving = true;
+
 	//setup
 	void Awake()
 	{
@@ -96,7 +98,7 @@ public class MoveToPoints : MonoBehaviour
 	{
 		if(transform.tag != "Enemy")
 		{
-			if(!arrived && waypoints.Count > 0)
+			if(startMoving && !arrived && waypoints.Count > 0)
 			{
 				Vector3 direction = waypoints[currentWp].position - transform.position;
 				rigid.MovePosition(transform.position + (direction.normalized * speed * Time.fixedDeltaTime));
