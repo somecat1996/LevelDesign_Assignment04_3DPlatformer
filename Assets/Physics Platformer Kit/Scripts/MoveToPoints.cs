@@ -22,6 +22,8 @@ public class MoveToPoints : MonoBehaviour
 
 	public bool startMoving = true;
 
+	public float startDelay = 0;
+
 	//setup
 	void Awake()
 	{
@@ -56,41 +58,48 @@ public class MoveToPoints : MonoBehaviour
 	
 	void Update()
 	{
-		//if we've arrived at waypoint, get the next one
-		if(waypoints.Count > 0)
+		if (startDelay <= 0)
 		{
-			if(!arrived)
+			//if we've arrived at waypoint, get the next one
+			if (waypoints.Count > 0)
 			{
-				if (Vector3.Distance(transform.position, waypoints[currentWp].position) < 0.3f)
+				if (!arrived)
 				{
-					arrivalTime = Time.time;
-					arrived = true;
+					if (Vector3.Distance(transform.position, waypoints[currentWp].position) < 0.3f)
+					{
+						arrivalTime = Time.time;
+						arrived = true;
+					}
+				}
+				else
+				{
+					if (Time.time > arrivalTime + delay)
+					{
+						GetNextWP();
+						arrived = false;
+					}
 				}
 			}
-			else
+			//if this is an enemy, move them toward the current waypoint
+			if (transform.tag == "Enemy" && waypoints.Count > 0)
 			{
-				if(Time.time > arrivalTime + delay)
+				if (!arrived)
 				{
-					GetNextWP();
-					arrived = false;
+					characterMotor.MoveTo(waypoints[currentWp].position, enemyAI.acceleration, 0.1f, enemyAI.ignoreY);
+					//set animator
+					if (enemyAI.animatorController)
+						enemyAI.animatorController.SetBool("Moving", true);
 				}
-			}
-		}
-		//if this is an enemy, move them toward the current waypoint
-		if(transform.tag == "Enemy" && waypoints.Count > 0)
-		{
-			if(!arrived)
-			{
-				characterMotor.MoveTo(waypoints[currentWp].position, enemyAI.acceleration, 0.1f, enemyAI.ignoreY);
-				//set animator
-				if(enemyAI.animatorController)
-					enemyAI.animatorController.SetBool("Moving", true);
-			}
-			else
-				//set animator
-				if(enemyAI.animatorController)
+				else
+					//set animator
+					if (enemyAI.animatorController)
 					enemyAI.animatorController.SetBool("Moving", false);
+			}
 		}
+        else
+        {
+			startDelay -= Time.deltaTime;
+        }
 	}
 	
 	//if this is a platform move platforms toward waypoint

@@ -66,7 +66,7 @@ Shader "Custom/GreyboxUnit" {
 		void surf(Input IN, inout SurfaceOutputStandard o)
 	{
 		// Manually wrap
-		float3 pos = fmod(IN.worldPos, (float3(_UnitSize, _UnitSize, _UnitSize) * 2));
+		float3 pos = fmod(IN.worldPos + 0.0001f, (float3(_UnitSize, _UnitSize, _UnitSize) * 2));
 
 		// Prevent negative values from breaking wrap
 		// Mirror volumes if negative (prevent adjacent cubes along axis lines)
