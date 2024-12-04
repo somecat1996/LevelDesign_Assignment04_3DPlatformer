@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Detector : MonoBehaviour
 {
-    [SerializeField] private MoveToPoints MoveToPoints;
+    [SerializeField] private List<MoveToPoints> MoveToPoints;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            MoveToPoints.startMoving = true;
+            foreach (var item in MoveToPoints) {
+                item.startMoving = true; 
+            }
         }
     }
 }
