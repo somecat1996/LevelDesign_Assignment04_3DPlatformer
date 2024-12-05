@@ -38,6 +38,7 @@ public class Coin : MonoBehaviour
 			bounds.transform.parent = transform;
 			bounds.transform.position = transform.position;
 			bounds.AddComponent<TriggerParent>();
+			bounds.tag = "Coin";
 			triggerParent = GetComponentInChildren<TriggerParent>();
 			triggerParent.tagsToCheck = new string[1];
 			triggerParent.tagsToCheck[0] = "Player";

@@ -95,6 +95,7 @@ public class CameraFollow : MonoBehaviour
 		RaycastHit hit;
 		if(Physics.Raycast (target.position, direction, out hit, direction.magnitude + 0.3f))
 		{
+			print(hit.transform.tag);
 			transform.position = nextFramePosition;
 			foreach(string tag in avoidClippingTags)
 				if(hit.transform.tag == tag)
