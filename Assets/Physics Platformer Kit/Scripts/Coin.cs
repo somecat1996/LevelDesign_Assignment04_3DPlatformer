@@ -20,11 +20,11 @@ public class Coin : MonoBehaviour
 	void Awake()
 	{
 		gui = FindObjectOfType(typeof(GUIManager)) as GUIManager ;
-		if(tag != "Coin")
-		{
-			tag = "Coin";
-			Debug.LogWarning ("'Coin' script attached to object not tagged 'Coin', tag added automatically", transform);
-		}
+		//if(tag != "Coin")
+		//{
+		//	tag = "Coin";
+		//	Debug.LogWarning ("'Coin' script attached to object not tagged 'Coin', tag added automatically", transform);
+		//}
 		GetComponent<Collider>().isTrigger = true;
 		triggerParent = GetComponentInChildren<TriggerParent>();
 		//if no trigger bounds are attached to coin, set them up
@@ -38,7 +38,7 @@ public class Coin : MonoBehaviour
 			bounds.transform.parent = transform;
 			bounds.transform.position = transform.position;
 			bounds.AddComponent<TriggerParent>();
-			bounds.tag = "Coin";
+			bounds.tag = "Pickup";
 			triggerParent = GetComponentInChildren<TriggerParent>();
 			triggerParent.tagsToCheck = new string[1];
 			triggerParent.tagsToCheck[0] = "Player";
