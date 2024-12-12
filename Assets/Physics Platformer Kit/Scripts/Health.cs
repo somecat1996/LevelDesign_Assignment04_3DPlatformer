@@ -96,7 +96,9 @@ public class Health : MonoBehaviour
 			throwing = GetComponent<Throwing>();
 		if(throwing && throwing.heldObj && throwing.heldObj.tag == "Pickup")
 			throwing.ThrowPickup();
-		
+		if (throwing && throwing.heldObj && throwing.heldObj.tag == "Pushable")
+			throwing.DropPushable();
+
 		if (deadSound)
 			AudioSource.PlayClipAtPoint(deadSound, transform.position);
 		flashing = false;

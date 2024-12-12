@@ -162,8 +162,8 @@ public class Throwing : MonoBehaviour
 				"the CheckSphere function, in order to make sure it isn't detecting something above the players head that is invisible");
 		}
 	}
-	
-	private void DropPushable()
+
+	public void DropPushable()
 	{
 		heldObj.GetComponent<Rigidbody>().interpolation = objectDefInterpolation;
 		Destroy (joint);
